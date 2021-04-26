@@ -1,0 +1,53 @@
+{#{% extends 'base.html.twig' %}#}
+
+{% block title %}Article{% endblock %}
+
+{% block body %}
+    <h1>Article</h1>
+
+    <table class="table">
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ article.id }}</td>
+            </tr>
+            <tr>
+                <th>Title</th>
+                <td>{{ article.title }}</td>
+            </tr>
+            <tr>
+                <th>Content</th>
+                <td>{{ article.content }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{{ article.date ? article.date|date('Y-m-d') : '' }}</td>
+            </tr>
+            <tr>
+                <th>Trending</th>
+                <td>{{ article.trending ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Banner</th>
+                <td>{{ article.banner ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>Flush</th>
+                <td>{{ article.flush ? 'Yes' : 'No' }}</td>
+            </tr>
+            <tr>
+                <th>ImageFile</th>
+                <td>{{ article.imageFile }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    {#    Show / Download the uploaded file from web#}
+    <button><a href="{{ asset('uploads/images/' ~ article.imageFile) }}">Show Image</a></button><br>
+
+    <button><a href="{{ path('article_index') }}">back to list</a></button>
+
+    <button> <a href="{{ path('article_edit', {'id': article.id}) }}">edit</a></button>
+
+    {{ include('article/_delete_form.html.twig') }}
+{% endblock %}

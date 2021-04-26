@@ -1,0 +1,35 @@
+{% extends 'base.html.twig' %}
+
+{#{% set articleId = app.request.get('id') %} #}{# Get article id from url parameter #}
+
+{% block title %}{{ showArticles.title }}{% endblock title %}
+
+{% block body %}
+  <div class="container-scroller">
+    <div class="content-wrapper">
+      <div class="container">
+        <div class="row">
+          <div class="col-sm-12">
+            <div class="card" data-aos="fade-up">
+              <div class="card-body">
+                <div class="aboutus-wrapper">
+                  <h2 class="mt-5 text-center mb-5">
+                    {{ showArticles.title }}  {# Article Title #}
+                  </h2>
+{#                  <h2 style="font-family: 'Calibri'; text-align: left;">#}
+{#                    {{ showArticles.title }} #}{# Article Title #}
+{#                  </h2> <br>#}
+
+                  {# Article image #}
+                  <img src="{{ asset('uploads/images/' ~ showArticles.imageFile) }}" width="600" height="350" style="display: block; margin: 0 auto">
+                  <br>
+                  <p style="text-align: justify">{{ showArticles.content }}</p> {# Artile Content #}
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+{% endblock %}
