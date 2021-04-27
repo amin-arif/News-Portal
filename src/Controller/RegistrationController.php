@@ -19,6 +19,13 @@ class RegistrationController extends AbstractController
      */
     public function register(Request $request, UserPasswordEncoderInterface $passwordEncoder, GuardAuthenticatorHandler $guardHandler, AppCustomAuthenticator $authenticator): Response
     {
+        if(!$this->isGranted('ROLE_ADMIN')) {
+            $this->addFlash('alert_msg', 'Access Denied! You are not allowed. ');
+
+            // Return a response
+            return $this->redirect($this->generateUrl('app_login'));
+        }
+
         $user = new User();
         $form = $this->createForm(RegistrationFormType::class, $user);
         $form->handleRequest($request);

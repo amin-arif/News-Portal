@@ -26,6 +26,13 @@ class ArticleController extends AbstractController
      */
     public function index(ArticleRepository $articleRepository): Response
     {
+        if(!$this->isGranted('ROLE_EDITOR')) {
+            $this->addFlash('alert_msg', 'Access Denied! You are not allowed. ');
+
+            // Return a response
+            return $this->redirect($this->generateUrl('app_login'));
+        }
+
         return $this->render('article/index.html.twig', [
             'articles' => $articleRepository->findAll(),
         ]);
@@ -39,6 +46,13 @@ class ArticleController extends AbstractController
      */
     public function new(Request $request, SluggerInterface $slugger): Response
     {
+        if(!$this->isGranted('ROLE_EDITOR')) {
+            $this->addFlash('alert_msg', 'Access Denied! You are not allowed. ');
+
+            // Return a response
+            return $this->redirect($this->generateUrl('app_login'));
+        }
+
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -113,6 +127,14 @@ class ArticleController extends AbstractController
      */
     public function edit(Request $request, Article $article, FileUploader $fileUploader): Response
     {
+        if(!$this->isGranted('ROLE_EDITOR')) {
+            $this->addFlash('alert_msg', 'Access Denied! You are not allowed. ');
+
+            // Return a response
+            return $this->redirect($this->generateUrl('app_login'));
+        }
+
+
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
@@ -153,6 +175,13 @@ class ArticleController extends AbstractController
      */
     public function delete(Request $request, Article $article): Response
     {
+        if(!$this->isGranted('ROLE_EDITOR')) {
+            $this->addFlash('alert_msg', 'Access Denied! You are not allowed. ');
+
+            // Return a response
+            return $this->redirect($this->generateUrl('app_login'));
+        }
+
         // Delete imageFile from folder
         $imageFilename = $article->getImageFile();
         if($imageFilename){

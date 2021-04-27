@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Entity\Article;
 
 use App\Entity\Category;
+use Symfony\Component\Security\Core\Security;
 use App\Repository\ArticleRepository;
 use App\Repository\CategoryRepository;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -27,7 +28,6 @@ class WebsiteController extends AbstractController
      * @var ArticleRepository
      */
     private $articleRepository;
-
 
     public function __construct(CategoryRepository $categoryRepository, ArticleRepository $articleRepository)
     {
@@ -115,7 +115,6 @@ class WebsiteController extends AbstractController
      * @Route ("/contact", name="website_contact")
      */
     public function doContact(): Response {
-        $this->denyAccessUnlessGranted('IS_AUTHENTICATED_FULLY');
 
         $category = $this->categoryRepository->findAll();
         $flush = $this->articleRepository->findBy(['flush' => true], ['id' => 'DESC'], 1);
