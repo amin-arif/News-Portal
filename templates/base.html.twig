@@ -163,8 +163,9 @@
                             </p>
                         </div>
                         <div class="d-flex">
-                            <span class="mr-3 text-danger">Wed, March 4, 2020</span>
-                            <span class="text-danger">30°C,London</span>
+                            <span class="mr-3 text-danger">{{ 'now'|date("l, F d, Y", "asia/dhaka") }}</span>
+{#                            <span class="mr-3 text-danger">{{ 'now'|date("l, F jS, Y \\a\\t h:ia", "asia/dhaka") }}</span>#}
+                            <span class="text-danger">30°C,Dhaka</span>
                         </div>
                     </div>
                 </div>
