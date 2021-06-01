@@ -2,13 +2,12 @@
 
 namespace App\Entity;
 
-use App\Repository\UserRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
- * @ORM\Entity(repositoryClass=UserRepository::class)
+ * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  * @UniqueEntity(fields={"email"}, message="There is already an account with this email")
  */
 class User implements UserInterface
@@ -19,6 +18,16 @@ class User implements UserInterface
      * @ORM\Column(type="integer")
      */
     private $id;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $firstName;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $lastName;
 
     /**
      * @ORM\Column(type="string", length=180, unique=true)
@@ -36,9 +45,69 @@ class User implements UserInterface
      */
     private $password;
 
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $contactNumber;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $dob;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $gender;
+
+    /**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $address;
+
+    /**
+     * @ORM\Column(type="float")
+     */
+    private $salary;
+
+    /**
+     * @ORM\Column(type="date")
+     */
+    private $joiningDate;
+
+    /**
+     * @ORM\Column(type="date", nullable=true)
+     */
+    private $disjointDate;
+
+
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function getFirstName(): ?string
+    {
+        return $this->firstName;
+    }
+
+    public function setFirstName(string $firstName): self
+    {
+        $this->firstName = $firstName;
+
+        return $this;
+    }
+
+    public function getLastName(): ?string
+    {
+        return $this->lastName;
+    }
+
+    public function setLastName(string $lastName): self
+    {
+        $this->lastName = $lastName;
+
+        return $this;
     }
 
     public function getEmail(): ?string
@@ -69,11 +138,10 @@ class User implements UserInterface
     public function getRoles(): array
     {
         $roles = $this->roles;
-        // guarantee every user at least has ROLE_USER
 
-//        if(in_array('ROLE_USER', $roles) === false) {
-//            $roles[] = 'ROLE_USER';
-//        }
+//        if(!empty($roles)) {
+////            $roles[] = 'ROLE_USER';
+////        }
 
         return array_unique($roles);
     }
@@ -100,6 +168,90 @@ class User implements UserInterface
         return $this;
     }
 
+    public function getDob(): ?\DateTimeInterface
+    {
+        return $this->dob;
+    }
+
+    public function setDob(\DateTimeInterface $dob): self
+    {
+        $this->dob = $dob;
+
+        return $this;
+    }
+
+    public function getContactNumber(): ?string
+    {
+        return $this->contactNumber;
+    }
+
+    public function setContactNumber(string $contactNumber): self
+    {
+        $this->contactNumber = $contactNumber;
+
+        return $this;
+    }
+
+    public function getGender(): ?string
+    {
+        return $this->gender;
+    }
+
+    public function setGender(string $gender): self
+    {
+        $this->gender = $gender;
+
+        return $this;
+    }
+
+    public function getAddress(): ?string
+    {
+        return $this->address;
+    }
+
+    public function setAddress(string $address): self
+    {
+        $this->address = $address;
+
+        return $this;
+    }
+
+    public function getSalary(): ?float
+    {
+        return $this->salary;
+    }
+
+    public function setSalary(float $salary): self
+    {
+        $this->salary = $salary;
+
+        return $this;
+    }
+
+    public function getJoiningDate(): ?\DateTimeInterface
+    {
+        return $this->joiningDate;
+    }
+
+    public function setJoiningDate(\DateTimeInterface $joiningDate): self
+    {
+        $this->joiningDate = $joiningDate;
+
+        return $this;
+    }
+
+    public function getDisjointDate(): ?\DateTimeInterface
+    {
+        return $this->disjointDate;
+    }
+
+    public function setDisjointDate(?\DateTimeInterface $disjointDate): self
+    {
+        $this->disjointDate = $disjointDate;
+
+        return $this;
+    }
+
     /**
      * Returning a salt is only needed, if you are not using a modern
      * hashing algorithm (e.g. bcrypt or sodium) in your security.yaml.
@@ -119,4 +271,6 @@ class User implements UserInterface
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
     }
+
+
 }

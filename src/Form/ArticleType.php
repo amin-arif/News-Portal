@@ -16,7 +16,7 @@ class ArticleType extends AbstractType
         $builder
             ->add('title')
             ->add('content')
-            ->add('date')
+            //->add('createdTime')
             ->add('trending')
             ->add('banner')
             ->add('flush')

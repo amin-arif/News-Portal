@@ -26,17 +26,19 @@ class ArticleController extends AbstractController
      */
     public function index(ArticleRepository $articleRepository): Response
     {
-        if(!$this->isGranted('ROLE_EDITOR')) {
-            $this->addFlash('alert_msg', 'Access Denied! You are not allowed. ');
-
-            // Return a response
-            return $this->redirect($this->generateUrl('app_login'));
-        }
+        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+//        if(!$this->isGranted('ROLE_EDITOR')) {
+//            $this->addFlash('alert_msg', 'Access Denied! You are not allowed. ');
+//
+//            // Return a response
+//            return $this->redirect($this->generateUrl('app_login'));
+//        }
 
         return $this->render('article/index.html.twig', [
             'articles' => $articleRepository->findAll(),
         ]);
     }
+
 
     /**
      * @Route("/new", name="article_new", methods={"GET","POST"})
@@ -46,13 +48,6 @@ class ArticleController extends AbstractController
      */
     public function new(Request $request, SluggerInterface $slugger): Response
     {
-        if(!$this->isGranted('ROLE_EDITOR')) {
-            $this->addFlash('alert_msg', 'Access Denied! You are not allowed. ');
-
-            // Return a response
-            return $this->redirect($this->generateUrl('app_login'));
-        }
-
         $article = new Article();
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
@@ -65,7 +60,7 @@ class ArticleController extends AbstractController
             // $imageFile = $request->files->get('article')['image'];
             $imageFile = $form->get('image')->getData();
 
-            /// Image_file_upload controller section START ///
+            /// Image_file_upload controller section ///
 
             // This condition is needed because the 'image' field is not required
             // so the Image file must be processed only when a file is uploaded
@@ -89,8 +84,11 @@ class ArticleController extends AbstractController
                 // instead of its contents
                 $article->setImageFile($newFilename);
             }
-            /// Image_file_upload controller section END ///
 
+            // Set current time
+            date_default_timezone_set('Asia/Dhaka');
+            $currentTime = new \DateTime();
+            $article->setCreatedTime($currentTime);
 
             $entityManager = $this->getDoctrine()->getManager();
             $entityManager->persist($article);
@@ -127,14 +125,6 @@ class ArticleController extends AbstractController
      */
     public function edit(Request $request, Article $article, FileUploader $fileUploader): Response
     {
-        if(!$this->isGranted('ROLE_EDITOR')) {
-            $this->addFlash('alert_msg', 'Access Denied! You are not allowed. ');
-
-            // Return a response
-            return $this->redirect($this->generateUrl('app_login'));
-        }
-
-
         $form = $this->createForm(ArticleType::class, $article);
         $form->handleRequest($request);
 
@@ -175,13 +165,6 @@ class ArticleController extends AbstractController
      */
     public function delete(Request $request, Article $article): Response
     {
-        if(!$this->isGranted('ROLE_EDITOR')) {
-            $this->addFlash('alert_msg', 'Access Denied! You are not allowed. ');
-
-            // Return a response
-            return $this->redirect($this->generateUrl('app_login'));
-        }
-
         // Delete imageFile from folder
         $imageFilename = $article->getImageFile();
         if($imageFilename){

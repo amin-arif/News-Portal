@@ -29,10 +29,6 @@ class Article
      */
     private $content;
 
-    /**
-     * @ORM\Column(type="date")
-     */
-    private $date;
 
     /**
      * @ORM\ManyToOne(targetEntity=Category::class, inversedBy="articles")
@@ -59,6 +55,11 @@ class Article
      * @ORM\Column(type="string", length=255, nullable=true)
      */
     private $imageFile;
+
+    /**
+     * @ORM\Column(type="datetime")
+     */
+    private $createdTime;
 
 
 
@@ -89,18 +90,6 @@ class Article
     public function setContent(string $content): self
     {
         $this->content = $content;
-
-        return $this;
-    }
-
-    public function getDate(): ?\DateTimeInterface
-    {
-        return $this->date;
-    }
-
-    public function setDate(\DateTimeInterface $date): self
-    {
-        $this->date = $date;
 
         return $this;
     }
@@ -161,6 +150,18 @@ class Article
     public function setImageFile(?string $imageFile): self
     {
         $this->imageFile = $imageFile;
+
+        return $this;
+    }
+
+    public function getCreatedTime(): ?\DateTimeInterface
+    {
+        return $this->createdTime;
+    }
+
+    public function setCreatedTime(\DateTimeInterface $createdTime): self
+    {
+        $this->createdTime = $createdTime;
 
         return $this;
     }

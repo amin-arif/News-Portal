@@ -112,10 +112,9 @@ class WebsiteController extends AbstractController
     }
 
     /**
-     * @Route ("/contact", name="website_contact")
-     */
+    * @Route ("/contact", name="website_contact")
+    */
     public function doContact(): Response {
-
         $category = $this->categoryRepository->findAll();
         $flush = $this->articleRepository->findBy(['flush' => true], ['id' => 'DESC'], 1);
 
@@ -123,6 +122,13 @@ class WebsiteController extends AbstractController
             'categories' => $category,
             'flushes' => $flush,
         ));
+    }
+    /**
+    * @Route ("/admin.panel", name="website_admin")
+    */
+    public function serveAdmin(): Response {
+
+        return $this->render('website/adminPanel.html.twig');
     }
 }
 

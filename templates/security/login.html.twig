@@ -3,12 +3,12 @@
 {% block title %}<h2>LogIn</h2>{% endblock %}
 
 {% block body %}
-    {# User denied message #}
-    {% for message in app.flashes('alert_msg') %}
-        <div class="alert alert-success">
-            {{ message }}
-        </div>
-    {% endfor %}
+{#    #}{# User denied message #}
+{#    {% for message in app.flashes('alert_msg') %}#}
+{#        <div class="alert alert-success">#}
+{#            {{ message }}#}
+{#        </div>#}
+{#    {% endfor %}#}
 
 <form method="post">
     {% if error %}

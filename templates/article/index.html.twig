@@ -11,7 +11,7 @@
                 <th>Id</th>
                 <th>Title</th>
                 <th>Content</th>
-                <th>Date</th>
+                <th>Created Time</th>
                 <th>Trending</th>
                 <th>Banner</th>
                 <th>Flush</th>
@@ -25,7 +25,7 @@
                 <td>{{ article.id }}</td>
                 <td>{{ article.title }}</td>
                 <td>{{ article.content }}</td>
-                <td>{{ article.date ? article.date|date('Y-m-d') : '' }}</td>
+                <td>{{ article.createdTime ? article.createdTime|date('Y-m-d H:i:s') : '' }}</td>
                 <td>{{ article.trending ? 'Yes' : 'No' }}</td>
                 <td>{{ article.banner ? 'Yes' : 'No' }}</td>
                 <td>{{ article.flush ? 'Yes' : 'No' }}</td>
