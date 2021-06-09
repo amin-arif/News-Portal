@@ -98,6 +98,6 @@ class UserController extends AbstractController
      */
     public function serveAdmin(): Response {
 
-        return $this->render('user/adminPanel.html.twig');
+        return $this->render('user/adminDashboard.html.twig');
     }
 }

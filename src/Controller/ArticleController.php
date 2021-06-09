@@ -26,10 +26,10 @@ class ArticleController extends AbstractController
      */
     public function index(ArticleRepository $articleRepository): Response
     {
-        $this->denyAccessUnlessGranted('ROLE_EDITOR');
+        // $this->denyAccessUnlessGranted('ROLE_EDITOR');
+
 //        if(!$this->isGranted('ROLE_EDITOR')) {
 //            $this->addFlash('alert_msg', 'Access Denied! You are not allowed. ');
-//
 //            // Return a response
 //            return $this->redirect($this->generateUrl('app_login'));
 //        }
@@ -94,7 +94,7 @@ class ArticleController extends AbstractController
             $entityManager->persist($article);
             $entityManager->flush();
 
-            return $this->redirectToRoute('article_index');
+            return $this->redirectToRoute('article_new');
         }
 
         return $this->render('article/new.html.twig', [

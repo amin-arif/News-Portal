@@ -52,12 +52,13 @@ class WebsiteController extends AbstractController
         $trend = $article->findBy(['trending' => true],['id' => 'DESC'], 3);
         $flush = $article->findBy(['flush' => true], ['id' => 'DESC'], 3);
 
-        $native = $article->findBy(['category' => ['type' => 1]], ['id' => 'DESC'], 5);
+        $bangladesh = $article->findBy(['category' => ['type' => 1]], ['id' => 'DESC'], 5);
         $international = $article->findBy(['category' => ['type' => 2]], ['id' => 'DESC'], 5);
-        $sport = $article->findBy(['category' => ['type' => 3]], ['id' => 'DESC'], 5);
-        $business = $article->findBy(['category' => ['type' => 4]], ['id' => 'DESC'], 5);
-        $entertainment = $article->findBy(['category' => ['type' => 5]], ['id' => 'DESC'], 5);
-        $tech = $article->findBy(['category' => ['type' => 6]], ['id' => 'DESC'], 5);
+        $business = $article->findBy(['category' => ['type' => 3]], ['id' => 'DESC'], 5);
+        $sport = $article->findBy(['category' => ['type' => 4]], ['id' => 'DESC'], 5);
+        $entertainment = $article->findBy(['category' => ['type' => 6]], ['id' => 'DESC'], 5);
+        $tech = $article->findBy(['category' => ['type' => 7]], ['id' => 'DESC'], 5);
+        $opinion = $article->findBy(['category' => ['type' => 5]], ['id' => 'DESC'], 5);
 
         return $this->render('website/index.html.twig', array(
             'categories' => $category,
@@ -66,12 +67,13 @@ class WebsiteController extends AbstractController
             'banners' => $banner,
             'flushes' => $flush,
 
-            'natives' => $native,
+            'natives' => $bangladesh,
             'internationals' => $international,
             'sports' => $sport,
             'businesses' => $business,
             'entertainments' => $entertainment,
             'techs' => $tech,
+            'opinions' => $opinion,
 
         ));
     }
@@ -128,7 +130,7 @@ class WebsiteController extends AbstractController
     */
     public function serveAdmin(): Response {
 
-        return $this->render('website/adminPanel.html.twig');
+        return $this->render('website/adminPanel/adminDashboard.html.twig');
     }
 }
 
